@@ -38,11 +38,11 @@ DerivativeImg3 = DerivativeImg3(1:end-1, 1:end-1, :);
 DerivativeImg4 = DerivativeImg4(1:end-1, 1:end-1, :);
 DerivativeImg5 = DerivativeImg5(1:end-1, 1:end-1, :);
 
-DerivativeImg1 = DerivativeImg1 ./ mean(DerivativeImg1(1,1,:));
-DerivativeImg2 = DerivativeImg2 ./ mean(DerivativeImg2(1,1,:));
-DerivativeImg3 = DerivativeImg3 ./ mean(DerivativeImg3(1,1,:));
-DerivativeImg4 = DerivativeImg4 ./ mean(DerivativeImg4(1,1,:));
-DerivativeImg5 = DerivativeImg5 ./ mean(DerivativeImg5(1,1,:));
+DerivativeImg1 = DerivativeImg1 ./ min(DerivativeImg1(1,1,:));
+DerivativeImg2 = DerivativeImg2 ./ min(DerivativeImg2(1,1,:));
+DerivativeImg3 = DerivativeImg3 ./ min(DerivativeImg3(1,1,:));
+DerivativeImg4 = DerivativeImg4 ./ min(DerivativeImg4(1,1,:));
+DerivativeImg5 = DerivativeImg5 ./ min(DerivativeImg5(1,1,:));
 
 DerivativeImg = 1*DerivativeImg1 + ...
                 1*DerivativeImg2 + ...
@@ -51,7 +51,7 @@ DerivativeImg = 1*DerivativeImg1 + ...
                 1*DerivativeImg5;
 
 sharp = [ 0.7  -1.0  -0.7
-         -1.0   2.0   1.0
+         -1.0   1.5   1.0
           0.7   1.0  -0.7];
 
 sharp = sharp ./ max(sharp(:));
@@ -60,7 +60,8 @@ I = cumsum(cumsum(DerivativeImg, 1), 2);
 
 I = I - min(I(:));
 I = I .^ 0.6;
-I = uint16(I ./ max(I(:)) * (2^16));
+I = I ./ max(I(:));
+I = uint16(I * (2^16));
 
 I(:,:,1) = conv2(I(:,:,1), sharp, 'same');
 I(:,:,2) = conv2(I(:,:,2), sharp, 'same');
