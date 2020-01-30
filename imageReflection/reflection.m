@@ -1,9 +1,20 @@
 function  output = reflection(input, minlimit, maxlimit)
-% REFLECTION
+%% REFLECTION
 % reflects the values between min and max limits. 
 % sample
-% figure; plot(reflection(1:100, 50, 60));
-% figure; plot(reflection(sin(0:0.01:(5*pi)), -0.8, +0.8));
+% %% reflection of an array
+% arr_in = 1:100;
+% min_limit = 50;
+% max_limit = 60;
+% arr_reflect = reflection(arr_in, min_limit, max_limit);
+% figure; plot(arr_in,':'); hold on; plot(arr_reflect, '-'); hold off;
+% 
+% %% reflection of an wave
+% arr_in = sin(0:0.01:(5*pi)); % results between -1..1
+% min_limit = -0.8; % reflect from -0.8
+% max_limit = +0.8; % reflect from  0.8
+% arr_reflect = reflection(arr_in, min_limit, max_limit);
+% figure; plot(arr_in,':'); hold on; plot(arr_reflect, '-'); hold off;
 
     output = minlimit + abs(input - minlimit);
     output = maxlimit - abs(maxlimit - output);
