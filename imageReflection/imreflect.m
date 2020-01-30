@@ -44,7 +44,7 @@ function reflectedIm = imreflect(im, topborder, bottomborder, leftborder, rightb
     newH = topborder+h+bottomborder; % new height of the reflected Image with the borders
     newW = leftborder+w+rightborder; % new width of the reflected Image with the borders
     
-    reflectedIm = zeros([newH newW c], 'uint8');
+    reflectedIm = zeros([newH newW c], class(im));
     
     i = 1:newH;
     j = 1:newW;
